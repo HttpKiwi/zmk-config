@@ -1,7 +1,6 @@
 /*
- * Copyright (c) 2020 The ZMK Contributors
- *
- * SPDX-License-Identifier: MIT
+ * Shared keymap layers for left, right, and dongle.
+ * 41 bindings: left outer bottom (RC(2,0)) omitted.
  */
 
 #include <behaviors.dtsi>
@@ -26,11 +25,6 @@
                         >;
                 };
                 lower_layer {
-// -----------------------------------------------------------------------------------------
-// |  TAB |  1  |  2  |  3  |  4  |  5  |   |  6  |  7  |  8  |  9  |  0  | BSPC |
-// | BTCLR| BT1 | BT2 | BT3 | BT4 | BT5 |   | LFT | DWN |  UP | RGT |     |      |
-//        |     |     |     |     |     |   |     |     |     |     |     |      |
-//                    | GUI |     | SPC |   | ENT |     | ALT |
                         bindings = <
    &kp TAB    &kp N1       &kp N2       &kp N3       &kp N4       &kp N5         &kp N6   &kp N7   &kp N8 &kp N9    &kp N0 &kp BSPC
    &bt BT_CLR &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4   &kp LEFT &kp DOWN &kp UP &kp RIGHT &trans &trans
@@ -40,11 +34,6 @@
                 };
 
                 raise_layer {
-// -----------------------------------------------------------------------------------------
-// |  TAB |  !  |  @  |  #  |  $  |  %  |   |  ^  |  &  |  *  |  (  |  )  | BSPC |
-// | CTRL |     |     |     |     |     |   |  -  |  =  |  [  |  ]  |  \  |  `   |
-//        |     |     |     |     |     |   |  _  |  +  |  {  |  }  | "|" |  ~   |
-//                    | GUI |     | SPC |   | ENT |     | ALT |
                         bindings = <
    &kp  TAB  &kp EXCL &kp AT &kp HASH &kp DLLR &kp PRCNT   &kp CARET &kp AMPS  &kp ASTRK &kp LPAR &kp RPAR &kp BSPC
    &kp LCTRL &trans   &trans &trans   &trans   &trans      &kp MINUS &kp EQUAL &kp LBKT  &kp RBKT &kp BSLH &kp GRAVE
@@ -55,36 +44,9 @@
         };
 };
 
-/* Shield corne.dtsi runs after config overlays and resets
- * zmk,physical-layout to the stock 42-key Corne map. Force ours
- * last so dropping RC(2,0) does not shift the right bottom row. */
+/* Stock corne.dtsi resets physical-layout; force ours last. */
 / {
         chosen {
                 zmk,physical-layout = &kiwiboard_layout;
         };
-};
-
-/* Applied last, after the Corne shield defines kscan0.
- * Right USB test pinout:
- *   rows top→thumbs: 024 100 011 104
- *   cols outer→inner: 029 002 115 113 111 010
- * Firmware col-gpios are inner→outer. */
-&kscan0 {
-    /delete-property/ row-gpios;
-    row-gpios
-        = <&pro_micro 5 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>  /* P0.24 */
-        , <&pro_micro 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>  /* P1.00 */
-        , <&pro_micro 7 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>  /* P0.11 */
-        , <&pro_micro 8 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>  /* P1.04 */
-        ;
-
-    /delete-property/ col-gpios;
-    col-gpios
-        = <&pro_micro 16 GPIO_ACTIVE_HIGH>  /* P0.10 / D16 inner */
-        , <&pro_micro 14 GPIO_ACTIVE_HIGH>  /* P1.11 */
-        , <&pro_micro 15 GPIO_ACTIVE_HIGH>  /* P1.13 */
-        , <&pro_micro 18 GPIO_ACTIVE_HIGH>  /* P1.15 */
-        , <&pro_micro 19 GPIO_ACTIVE_HIGH>  /* P0.02 */
-        , <&pro_micro 20 GPIO_ACTIVE_HIGH>  /* P0.29 outer */
-        ;
 };
