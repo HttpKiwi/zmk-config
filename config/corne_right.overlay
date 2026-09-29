@@ -1,0 +1,29 @@
+#include "kiwiboard.dtsi"
+
+/* Rows, top → home → bottom → thumbs: 024 100 011 104 */
+&kscan0 {
+    /delete-property/ row-gpios;
+    row-gpios
+        = <&pro_micro 5 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>  /* P0.24 */
+        , <&pro_micro 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>  /* P1.00 */
+        , <&pro_micro 7 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>  /* P0.11 */
+        , <&pro_micro 8 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>  /* P1.04 */
+        ;
+
+    /* Columns: firmware order is inner → outer (YHN first).
+     * Handwire outer → inner was: 029 002 115 113 111 010 */
+    /delete-property/ col-gpios;
+    col-gpios
+        = <&pro_micro 10 GPIO_ACTIVE_HIGH>  /* P0.10 inner */
+        , <&pro_micro 14 GPIO_ACTIVE_HIGH>  /* P1.11 */
+        , <&pro_micro 15 GPIO_ACTIVE_HIGH>  /* P1.13 */
+        , <&pro_micro 18 GPIO_ACTIVE_HIGH>  /* P1.15 */
+        , <&pro_micro 19 GPIO_ACTIVE_HIGH>  /* P0.02 */
+        , <&pro_micro 20 GPIO_ACTIVE_HIGH>  /* P0.29 outer */
+        ;
+};
+
+/* Right half local cols 0-5 map to transform cols 6-11. */
+&kiwiboard_transform {
+    col-offset = <6>;
+};
