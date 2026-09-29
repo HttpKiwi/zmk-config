@@ -55,6 +55,15 @@
         };
 };
 
+/* Shield corne.dtsi runs after config overlays and resets
+ * zmk,physical-layout to the stock 42-key Corne map. Force ours
+ * last so dropping RC(2,0) does not shift the right bottom row. */
+/ {
+        chosen {
+                zmk,physical-layout = &kiwiboard_layout;
+        };
+};
+
 /* Applied last, after the Corne shield defines kscan0.
  * Right USB test pinout:
  *   rows top→thumbs: 024 100 011 104
