@@ -1,0 +1,7 @@
+# SPDX-License-Identifier: MIT
+
+config SHIELD_KIWIBOARD_LEFT
+	def_bool $(shields_list_contains,kiwiboard_left)
+
+config SHIELD_KIWIBOARD_RIGHT
+	def_bool $(shields_list_contains,kiwiboard_right)

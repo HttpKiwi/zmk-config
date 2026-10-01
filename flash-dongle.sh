@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-# Flash the Kiwiboard dongle UF2 without typing after bootloader mode.
+# Flash the Kiwiboard dongle UF2.
 # Usage: ./flash-dongle.sh
-# Then Tab+Bspc (or double-RST the dongle) while it counts down / waits.
+# Then Tab+Bspc (or double-RST) while it waits.
 
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")" && pwd)"
-UF2="${UF2:-$ROOT/firmware/corne_dongle-nice_nano_v2-zmk.uf2}"
+UF2="${UF2:-$ROOT/firmware/kiwiboard_dongle-nice_nano_v2-zmk.uf2}"
 GRACE_SECS="${GRACE_SECS:-8}"
 TIMEOUT_SECS="${TIMEOUT_SECS:-60}"
 
@@ -59,7 +59,6 @@ echo "Found: $mount"
 cp -v "$UF2" "$mount/"
 sync
 
-# Drive usually unmounts itself after a successful UF2 write.
 for _ in $(seq 1 40); do
   if [[ ! -d "$mount" ]]; then
     echo "Done — dongle left bootloader."

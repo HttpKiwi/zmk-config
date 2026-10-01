@@ -1,7 +1,7 @@
 #include "kiwiboard.dtsi"
 #include "indicator_led.dtsi"
 
-/* Right half local cols 0-5 map to transform cols 6-11. */
+/* Right half occupies transform columns 6–11. */
 &kiwiboard_transform {
-    col-offset = <6>;
+	col-offset = <6>;
 };

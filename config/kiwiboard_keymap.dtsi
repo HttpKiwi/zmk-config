@@ -1,11 +1,7 @@
 /*
- * Shared keymap: 41 keys (left outer bottom omitted).
- * Source of truth: /home/httpkiwi/Projects/Kiwiboard/layout.vil
- * (Vial app export of Custom Split). Number row folded away — Corne has none.
- *
- * Layers: 0 base, 1 lower, 2 raise, 3 adjust (tri-layer), 4 gaming
- *
- * Dongle bootloader: combo Tab + Bspc → &bootloader (ZMK-only; not in Vial).
+ * Kiwiboard shared keymap — 41 keys (left outer bottom omitted).
+ * Source: layout.vil (Vial export). Layers: base, lower, raise, adjust, gaming.
+ * Dongle: Tab+Bspc combo → &bootloader.
  */
 
 #include <behaviors.dtsi>

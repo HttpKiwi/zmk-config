@@ -1,0 +1,11 @@
+# SPDX-License-Identifier: MIT
+
+if SHIELD_KIWIBOARD_LEFT || SHIELD_KIWIBOARD_RIGHT
+
+config ZMK_KEYBOARD_NAME
+	default "Kiwiboard"
+
+config ZMK_SPLIT
+	default y
+
+endif

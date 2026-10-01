@@ -1,0 +1,13 @@
+#include "kiwiboard.dtsi"
+
+/* Left cols outer → inner */
+&kscan0 {
+	col-gpios
+		= <&pro_micro 20 GPIO_ACTIVE_HIGH>  /* P0.29 outer */
+		, <&pro_micro 19 GPIO_ACTIVE_HIGH>  /* P0.02 */
+		, <&pro_micro 18 GPIO_ACTIVE_HIGH>  /* P1.15 */
+		, <&pro_micro 15 GPIO_ACTIVE_HIGH>  /* P1.13 */
+		, <&pro_micro 14 GPIO_ACTIVE_HIGH>  /* P1.11 */
+		, <&pro_micro 16 GPIO_ACTIVE_HIGH>  /* P0.10 inner */
+		;
+};
