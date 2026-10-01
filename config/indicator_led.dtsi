@@ -1,15 +1,7 @@
-/* nice!nano / clone blue user LED (GPIO0.15). Not the USB power LED. */
+/* Board already defines blue_led on GPIO0.15 (physically red on many clones). */
 
 / {
-    leds {
-        compatible = "gpio-leds";
-        user_led: led_0 {
-            gpios = <&gpio0 15 GPIO_ACTIVE_HIGH>;
-            label = "User LED";
-        };
-    };
-
     aliases {
-        indicator-led = &user_led;
+        indicator-led = &blue_led;
     };
 };
