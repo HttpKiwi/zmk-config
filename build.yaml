@@ -1,7 +1,7 @@
 # Dongle = BLE central (USB). Halves = peripherals on battery.
 include:
   - board: nice_nano_v2
-    shield: kiwiboard_dongle
+    shield: kiwiboard_dongle dongle_display
   - board: nice_nano_v2
     shield: kiwiboard_left
     artifact-name: kiwiboard_left
