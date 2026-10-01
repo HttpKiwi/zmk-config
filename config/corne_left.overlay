@@ -1,1 +1,2 @@
 #include "kiwiboard.dtsi"
+#include "indicator_led.dtsi"
