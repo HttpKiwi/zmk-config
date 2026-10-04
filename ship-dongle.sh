@@ -49,7 +49,8 @@ tmpdir="$(mktemp -d)"
 trap 'rm -rf "$tmpdir"' EXIT
 
 gh run download "$run_id" --repo "$REPO" -D "$tmpdir"
-found="$(find "$tmpdir" -name "$UF2_NAME" -print -quit)"
+# CI names it "kiwiboard_dongle dongle_display-…" since the shield list is space-joined.
+found="$(find "$tmpdir" -name 'kiwiboard_dongle*.uf2' -print -quit)"
 if [[ -z "$found" ]]; then
   echo "Artifact missing $UF2_NAME" >&2
   find "$tmpdir" -name '*.uf2' >&2 || true

@@ -6,8 +6,6 @@ manifest:
       url-base: https://github.com/zmkfirmware
     - name: bluedrink9
       url-base: https://github.com/BlueDrink9
-    - name: englmaxi
-      url-base: https://github.com/englmaxi
   projects:
     - name: zmk
       remote: zmkfirmware
@@ -15,8 +13,5 @@ manifest:
     - name: zmk-poor-mans-led-indicator
       remote: bluedrink9
       revision: main
-    - name: zmk-dongle-display
-      remote: englmaxi
-      revision: v0.3
   self:
     path: config
