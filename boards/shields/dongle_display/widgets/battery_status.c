@@ -145,7 +145,10 @@ ZMK_SUBSCRIPTION(widget_dongle_battery_status, zmk_usb_conn_state_changed);
 int zmk_widget_dongle_battery_status_init(struct zmk_widget_dongle_battery_status *widget, lv_obj_t *parent) {
     widget->obj = lv_obj_create(parent);
 
-    lv_obj_set_size(widget->obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
+    /* Fixed box: rows start hidden, so a content-sized box can stay 0x0
+     * and clip them once shown. 2 rows x 8px + 1px top offset;
+     * label "%4u%%" (5 x 9px) + 7px icon column. */
+    lv_obj_set_size(widget->obj, 56, 17);
     
     for (int i = 0; i < ZMK_SPLIT_BLE_PERIPHERAL_COUNT + SOURCE_OFFSET; i++) {
         lv_obj_t *image_canvas = lv_canvas_create(widget->obj);
