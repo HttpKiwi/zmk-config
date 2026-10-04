@@ -97,17 +97,23 @@ static void refresh_from_central(void) {
         uint8_t level = BATTERY_UNKNOWN;
         if (zmk_split_central_get_peripheral_battery_level(i, &level) == 0) {
             /* Central cache starts at 0 before the first BAS notify. */
-            if (level > 0 && level != levels[i]) {
-                /* ZMK only raises this on notify (level change), so the OLED
-                 * widget stays blank after a dongle reboot. Raise it here;
-                 * battery_listener updates levels[] and the report. */
-                raise_zmk_peripheral_battery_state_changed(
-                    (struct zmk_peripheral_battery_state_changed){
-                        .source = i, .state_of_charge = level});
-            } else if (level == 0 && levels[i] != BATTERY_UNKNOWN) {
+            if (level > 0 || levels[i] != BATTERY_UNKNOWN) {
                 levels[i] = level;
             }
         }
+    }
+
+    /* ZMK only raises this on notify (level change), and the OLED widget
+     * keeps one pending state, so it misses levels from before it started
+     * and drops L when L+R are raised together. Re-announce one side per
+     * tick instead. */
+    static uint8_t next;
+    uint8_t i = next;
+    next = (next + 1) % ARRAY_SIZE(levels);
+    if (levels[i] != BATTERY_UNKNOWN && levels[i] > 0) {
+        raise_zmk_peripheral_battery_state_changed(
+            (struct zmk_peripheral_battery_state_changed){.source = i,
+                                                          .state_of_charge = levels[i]});
     }
 }
 

@@ -50,6 +50,7 @@
                 compatible = "zmk,keymap";
 
                 default_layer {
+                        display-name = "BASE";
 /* layout.vil layer 0 (alphas + thumbs; num row omitted) */
 // -----------------------------------------------------------------------------------------
 // |  TAB |  Q  |  W  |  E  |  R  |  T  |   |  Y  |  U   |  I  |  O  |  P  | BSPC |
@@ -65,6 +66,7 @@
                 };
 
                 lower_layer {
+                        display-name = "LOWER";
 /* layout.vil layer 1 — symbols left, numpad right (F-keys were on num row). */
 // -----------------------------------------------------------------------------------------
 // |  `   |  ^  |  &  |  *  |  (  |  )  |   |  [  |  1  |  2  |  3  |  ~  | DEL  |
@@ -80,6 +82,7 @@
                 };
 
                 raise_layer {
+                        display-name = "RAISE";
 /* layout.vil layer 2 — inverted-T arrows (I=↑ J=← K=↓ L=→). */
 // -----------------------------------------------------------------------------------------
 // |      | INS | PSCR| MENU|     |     |   | PGUP| HOME|  ↑  | END |     | BSPC |
@@ -95,6 +98,7 @@
                 };
 
                 adjust_layer {
+                        display-name = "ADJ";
 /* layout.vil layer 3 — mouse + media. Left empties hold BT (ZMK-only). */
 // -----------------------------------------------------------------------------------------
 // | BOOT |     |     |     |     |     |   |     | BTN1| BTN2| BTN3|     |      |
@@ -109,6 +113,7 @@
                 };
 
                 gaming_layer {
+                        display-name = "GAME";
 /* layout.vil layer 4 — shifted WASD block; thumb TO(0) exits. */
 // -----------------------------------------------------------------------------------------
 // |  T   | TAB |  Q  |  W  |  E  |  R  |   |  Y  |  U  |  I  |  O  |  P  | BSPC |
