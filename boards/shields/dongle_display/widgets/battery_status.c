@@ -19,6 +19,7 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 #include <zmk/usb.h>
 
 #include "battery_status.h"
+#include "../../kiwiboard_dongle/lipo_pct.h"
 
 #if IS_ENABLED(CONFIG_ZMK_DONGLE_DISPLAY_DONGLE_BATTERY)
     #define SOURCE_OFFSET 1
@@ -108,7 +109,7 @@ static struct battery_state peripheral_battery_status_get_state(const zmk_event_
     const struct zmk_peripheral_battery_state_changed *ev = as_zmk_peripheral_battery_state_changed(eh);
     return (struct battery_state){
         .source = ev->source + SOURCE_OFFSET,
-        .level = ev->state_of_charge,
+        .level = kiwi_lipo_pct(ev->state_of_charge),
     };
 }
 
