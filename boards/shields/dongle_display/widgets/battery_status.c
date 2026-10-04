@@ -30,6 +30,10 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 #  define ZMK_SPLIT_BLE_PERIPHERAL_COUNT 0
 #endif
 
+#define BATTERY_COUNT (ZMK_SPLIT_BLE_PERIPHERAL_COUNT + SOURCE_OFFSET)
+/* "100%" (4 x 9px) + 7px icon column + gap */
+#define BATTERY_PITCH 46
+
 static sys_slist_t widgets = SYS_SLIST_STATIC_INIT(&widgets);
 
 struct battery_state {
@@ -82,7 +86,7 @@ static void set_battery_symbol(lv_obj_t *widget, struct battery_state state) {
     lv_obj_t *label = battery_objects[state.source].label;
 
     draw_battery(symbol, state.level, state.usb_present);
-    lv_label_set_text_fmt(label, "%4u%%", state.level);
+    lv_label_set_text_fmt(label, "%u%%", state.level);
     
     if (state.level > 0 || state.usb_present) {
         lv_obj_clear_flag(symbol, LV_OBJ_FLAG_HIDDEN);
@@ -145,10 +149,11 @@ ZMK_SUBSCRIPTION(widget_dongle_battery_status, zmk_usb_conn_state_changed);
 int zmk_widget_dongle_battery_status_init(struct zmk_widget_dongle_battery_status *widget, lv_obj_t *parent) {
     widget->obj = lv_obj_create(parent);
 
-    /* Fixed box: rows start hidden, so a content-sized box can stay 0x0
-     * and clip them once shown. 2 rows x 8px + 1px top offset;
-     * label "%4u%%" (5 x 9px) + 7px icon column. */
-    lv_obj_set_size(widget->obj, 56, 17);
+    /* Fixed box: entries start hidden, so a content-sized box can stay 0x0
+     * and clip them once shown. Entries sit side by side (L then R) on one
+     * line centred in the 16px yellow band of 2-colour panels. */
+    lv_obj_set_size(widget->obj, BATTERY_COUNT * BATTERY_PITCH, 16);
+    lv_obj_set_style_pad_all(widget->obj, 0, 0);
     
     for (int i = 0; i < ZMK_SPLIT_BLE_PERIPHERAL_COUNT + SOURCE_OFFSET; i++) {
         lv_obj_t *image_canvas = lv_canvas_create(widget->obj);
@@ -156,8 +161,9 @@ int zmk_widget_dongle_battery_status_init(struct zmk_widget_dongle_battery_statu
 
         lv_canvas_set_buffer(image_canvas, battery_image_buffer[i], 5, 8, LV_IMG_CF_TRUE_COLOR);
 
-        lv_obj_align(image_canvas, LV_ALIGN_TOP_RIGHT, 0, 1 + i * 8);
-        lv_obj_align(battery_label, LV_ALIGN_TOP_RIGHT, -7, 1 + i * 8);
+        int x = -(BATTERY_COUNT - 1 - i) * BATTERY_PITCH;
+        lv_obj_align(image_canvas, LV_ALIGN_TOP_RIGHT, x, 4);
+        lv_obj_align(battery_label, LV_ALIGN_TOP_RIGHT, x - 7, 4);
 
         lv_obj_add_flag(image_canvas, LV_OBJ_FLAG_HIDDEN);
         lv_obj_add_flag(battery_label, LV_OBJ_FLAG_HIDDEN);
