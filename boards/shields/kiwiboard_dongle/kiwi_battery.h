@@ -11,6 +11,10 @@
 
 #include <stdint.h>
 
+/* ZMK numbers peripherals by bond order, not side; here source 0 is the
+ * right half. Re-check after a settings_reset / re-pair. */
+#define KIWI_SIDE(source) ((source) ^ 1)
+
 static inline uint8_t kiwi_lipo_pct(uint8_t linear) {
     static const struct {
         int16_t mv;

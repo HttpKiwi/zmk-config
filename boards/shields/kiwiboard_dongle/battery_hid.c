@@ -23,7 +23,7 @@
 #include <zmk/events/battery_state_changed.h>
 #include <zmk/split/central.h>
 
-#include "lipo_pct.h"
+#include "kiwi_battery.h"
 
 LOG_MODULE_REGISTER(zmk_split_battery, CONFIG_ZMK_LOG_LEVEL);
 
@@ -76,8 +76,9 @@ static int send_report(void) {
         return -ENODEV;
     }
 
-    /* levels[] stays linear (ZMK scale); remap only on the way out. */
-    uint8_t buf[3] = {REPORT_ID_BATTERY, kiwi_lipo_pct(levels[0]), kiwi_lipo_pct(levels[1])};
+    /* levels[] is linear and indexed by ZMK source; report is [left, right] LiPo %. */
+    uint8_t buf[3] = {REPORT_ID_BATTERY, kiwi_lipo_pct(levels[KIWI_SIDE(0)]),
+                      kiwi_lipo_pct(levels[KIWI_SIDE(1)])};
 
     if (k_sem_take(&report_sem, K_MSEC(50)) != 0) {
         LOG_WRN("battery report semaphore busy — recovering");
