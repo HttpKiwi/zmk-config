@@ -129,16 +129,16 @@
                 };
                 fn_layer {
                         display-name = "FN";
-/* Nested: hold LOWER, then hold right inner thumb. F-keys where layout.vil had its num row. */
+/* Nested: hold LOWER, then hold right inner thumb. F1-F9 sit where LOWER has 1-9; F10-F12 on the pinky column. */
 // -----------------------------------------------------------------------------------------
-// |  F1  |  F2 |  F3 |  F4 |  F5 |  F6 |   |  F7 |  F8 |  F9 | F10 | F11 | F12  |
-// |      | SFT | CTL | GUI | ALT |     |   |     |     |     |     |     |      |
-// |      |     |     |     |     |     |   |     |     |     |     |     |      |
+// |      |     |     |     |     |     |   |     |  F1 |  F2 |  F3 | F10 |      |
+// |      | SFT | CTL | GUI | ALT |     |   |     |  F4 |  F5 |  F6 | F11 |      |
+// |      |     |     |     |     |     |   |     |  F7 |  F8 |  F9 | F12 |      |
 //                    |     |(held)|    |   |(held)|    |     |
                         bindings = <
-   &kp F1  &kp F2     &kp F3    &kp F4   &kp F5   &kp F6    &kp F7 &kp F8 &kp F9 &kp F10 &kp F11 &kp F12
-   &none   &kp LSHIFT &kp LCTRL &kp LGUI &kp LALT &none     &none  &none  &none  &none   &none   &none
-           &none      &none     &none    &none    &none     &none  &none  &none  &none   &none   &none
+   &none   &none      &none     &none    &none    &none     &none  &kp F1 &kp F2 &kp F3 &kp F10 &none
+   &none   &kp LSHIFT &kp LCTRL &kp LGUI &kp LALT &none     &none  &kp F4 &kp F5 &kp F6 &kp F11 &none
+           &none      &none     &none    &none    &none     &none  &kp F7 &kp F8 &kp F9 &kp F12 &none
                                 &trans &trans &trans         &trans &trans &trans
                         >;
                 };
