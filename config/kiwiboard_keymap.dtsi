@@ -83,15 +83,15 @@
 
                 raise_layer {
                         display-name = "RAISE";
-/* layout.vil layer 2 — inverted-T arrows (I=↑ J=← K=↓ L=→). */
+/* layout.vil layer 2, but vim arrows on the home row (H=← J=↓ K=↑ L=→). */
 // -----------------------------------------------------------------------------------------
 // |      | INS | PSCR| MENU|     |     |   | PGUP| HOME|  ↑  | END |     | BSPC |
-// |      | LALT| LCTL| LSFT|     | CAPS|   | PGDN|  ←  |  ↓  |  →  | DEL | BSPC |
+// |      | LALT| LCTL| LSFT|     | CAPS|   |  ←  |  ↓  |  ↑  |  →  | DEL | BSPC |
 // |      | UNDO| CUT | COPY| PSTE|     |   |     |     |     |     |     |      |
 //                    | GUI |     |     |   |     |     | GUI |
                         bindings = <
    &trans   &kp INS   &kp PSCRN  &kp K_APP  &none     &none      &kp PG_UP  &kp HOME   &kp UP    &kp END    &none     &kp BSPC
-   &trans   &kp LALT  &kp LCTRL  &kp LSHIFT &none     &kp CAPS   &kp PG_DN  &kp LEFT   &kp DOWN  &kp RIGHT  &kp DEL   &kp BSPC
+   &trans   &kp LALT  &kp LCTRL  &kp LSHIFT &none     &kp CAPS   &kp LEFT   &kp DOWN   &kp UP    &kp RIGHT  &kp DEL   &kp BSPC
             &kp LC(Z) &kp LC(X)  &kp LC(C)  &kp LC(V) &none      &none      &none      &none     &none      &none     &trans
                                     &kp LGUI &mo 2 &trans         &trans &trans &kp RGUI
                         >;
